@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background-color: #020617;
+  color: #f1f5f9;
+}
+
+@keyframes flowPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: translateY(0px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(3px);
+  }
+}
+
+@keyframes registerFlash {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 22px 4px rgba(34, 211, 238, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+  }
+}
+
+.animate-flow-pulse {
+  animation: flowPulse 1.2s ease-in-out infinite;
+}
+
+.animate-register-flash {
+  animation: registerFlash 1.5s ease-out infinite;
+}

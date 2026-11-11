@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Wed Nov 11 13:31:44 2026
+# Process ID: 25256
+# Current directory: C:/Users/AA/Desktop/Montgomery_Mul_DSD_OEL
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent16764 C:\Users\AA\Desktop\Montgomery_Mul_DSD_OEL\Montgomery_Mul_DSD_OEL.xpr
+# Log file: C:/Users/AA/Desktop/Montgomery_Mul_DSD_OEL/vivado.log
+# Journal file: C:/Users/AA/Desktop/Montgomery_Mul_DSD_OEL\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/AA/Desktop/Montgomery_Mul_DSD_OEL/Montgomery_Mul_DSD_OEL.xpr
+update_compile_order -fileset sources_1

@@ -1,0 +1,14 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../Montgomery_Mul_DSD_OEL.srcs/sources_1/new/MM_verificcation_wrapper.v" \
+"C:/Users/khadi/Downloads/adder32.v" \
+"C:/Users/khadi/Downloads/blockmem1r1w.v" \
+"C:/Users/khadi/Downloads/montprod.v" \
+"C:/Users/khadi/Downloads/shr32.v" \
+"../../../../Montgomery_Mul_DSD_OEL.srcs/sim_1/new/tb_MM.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
