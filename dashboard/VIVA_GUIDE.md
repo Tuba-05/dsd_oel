@@ -62,3 +62,4 @@ Because the `montprod` Core Engine always computes $\text{MontProd}(X, Y) = (X \
 1. **`M[0] == 1` ($M$ must be odd):** Montgomery reduction requires $\gcd(R, M) = 1$. Since $R = 2^{256}$ is a power of 2, $M$ must have no factor of 2 (i.e., $M$ must be odd).
 2. **`M[255:254] == 2'b00` ($M < 2^{254}$):** Ensures that intermediate additions $(S + A + M)$ inside the 256-bit words never overflow the 8×32-bit word capacity of `s_mem`.
 3. **`A < M` and `B < M`:** Ensures the inputs are already reduced in the residue ring $\mathbb{Z}_M$.
+

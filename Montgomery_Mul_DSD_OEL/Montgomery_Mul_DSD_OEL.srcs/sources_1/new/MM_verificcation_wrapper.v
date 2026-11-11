@@ -4,7 +4,7 @@
 //
 // Test wrapper: normal-domain  A, B, M  ->  normal-domain  (A*B) mod M
 //
-// Uses the unmodified GitHub montprod core (length = 8 words = 256 bit).
+// Instantiates the 32-bit word-serial montprod core (length = 8 words = 256 bit).
 // Core computes MontProd(x,y) = x*y*R^-1 mod M, with R = 2^256.
 //
 // Steps done internally (nothing hardcoded, R^2 mod M computed in HW):
