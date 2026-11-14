@@ -1,7 +1,7 @@
 /**
  * @file OutputPanel.tsx
- * @description Right 3-column panel displaying the chip's ready light, `b` and `q` decision
- * indicator dots, and the Result Tray (with optional 63-hour modulo clock wrap).
+ * @description Responsive right/bottom panel displaying the chip's ready light,
+ * `b` and `q` decision indicator dots, and the Result Tray.
  */
 
 import React from "react";
@@ -12,6 +12,7 @@ interface OutputPanelProps {
   qVal: number | null;
   resultOut?: number;
   showClockWrap?: boolean;
+  wrapEquation?: string;
 }
 
 export const OutputPanel: React.FC<OutputPanelProps> = ({
@@ -20,11 +21,12 @@ export const OutputPanel: React.FC<OutputPanelProps> = ({
   qVal,
   resultOut,
   showClockWrap,
+  wrapEquation,
 }) => {
   return (
-    <div className="col-span-3 h-[490px] p-4 flex flex-col justify-between items-center relative">
+    <div className="col-span-1 lg:col-span-3 lg:h-[490px] p-4 flex flex-col sm:flex-row lg:flex-col justify-around lg:justify-between items-center gap-6 relative">
       {/* Top: Ready Light & b, q indicators */}
-      <div className="w-full flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-3">
         {/* Ready light */}
         <div className="flex flex-col items-center">
           <span className="text-[11px] text-slate-400 mb-1">ready light</span>
@@ -99,9 +101,9 @@ export const OutputPanel: React.FC<OutputPanelProps> = ({
                 <span className="text-2xl font-bold font-mono text-emerald-400">
                   {resultOut}
                 </span>
-                {showClockWrap && (
+                {showClockWrap && wrapEquation && (
                   <span className="text-[9px] text-emerald-300 mt-0.5">
-                    72 − 63 = 9
+                    {wrapEquation}
                   </span>
                 )}
               </div>
@@ -115,9 +117,8 @@ export const OutputPanel: React.FC<OutputPanelProps> = ({
         </span>
       </div>
 
-      {/* Spacer */}
-      <div className="h-2" />
+      {/* Spacer on desktop */}
+      <div className="hidden lg:block h-2" />
     </div>
   );
 };
-

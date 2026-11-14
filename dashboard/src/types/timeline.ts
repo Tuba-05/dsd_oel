@@ -3,9 +3,16 @@
  * @description TypeScript interfaces for the timeline-driven Montgomery Multiplier visualizer.
  *
  * Purpose:
- * - Defines the structure of each animation beat (`TimelineBeat`), active machine highlights,
- *   and the round-by-round summary data (`RoundSummary`).
+ * - Defines the structure of user-configurable operands (`OperandConfig`),
+ *   animation beats (`TimelineBeat`), active machine highlights, and round summaries.
  */
+
+/** User-configurable 8-bit toy model operands (0 <= A, B < M <= 63, M odd) */
+export interface OperandConfig {
+  a: number;
+  b: number;
+  m: number;
+}
 
 /** Which arithmetic unit inside the Chip is currently active */
 export type ActiveMachine = "M" | "A" | "DIV2" | null;
@@ -30,6 +37,7 @@ export interface TimelineBeat {
   activeMachine: ActiveMachine;
   resultOut?: number;
   showClockWrap?: boolean;
+  wrapEquation?: string;
   showEpilogueOverlay?: boolean;
   duration: number;
 }
@@ -45,6 +53,7 @@ export interface RoundSummary {
   sDiv2: number;
   w0: string;
   w1: string;
-  note: string;
+  carryInA: boolean;
+  carryInM: boolean;
+  droppedBit: number;
 }
-
