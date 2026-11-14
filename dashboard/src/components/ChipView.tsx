@@ -10,7 +10,8 @@
  */
 
 import React from "react";
-import { ActiveMachine } from "../types/timeline";
+import { ActiveMachine, NumberFormat } from "../types/timeline";
+import { formatValue, formatWord4Bit } from "../utils/formatNumber";
 
 interface ChipViewProps {
   sVal: number;
@@ -18,6 +19,7 @@ interface ChipViewProps {
   carryActive: boolean;
   droppedBit: number | null;
   activeMachine: ActiveMachine;
+  numberFormat: NumberFormat;
 }
 
 export const ChipView: React.FC<ChipViewProps> = ({
@@ -26,7 +28,10 @@ export const ChipView: React.FC<ChipViewProps> = ({
   carryActive,
   droppedBit,
   activeMachine,
+  numberFormat,
 }) => {
+  const isBin = numberFormat === "bin";
+
   return (
     <div className="col-span-1 lg:col-span-6 lg:h-[490px] rounded-3xl border-2 border-purple-500/60 bg-[#1E293B]/20 p-4 sm:p-5 flex flex-col justify-between gap-4 relative shadow-2xl shadow-purple-950/20">
       <div className="text-center">
@@ -45,18 +50,28 @@ export const ChipView: React.FC<ChipViewProps> = ({
             {/* Central S Circle */}
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#8B5CF6] shadow-xl shadow-purple-500/30 flex flex-col items-center justify-center text-white font-bold z-10 transition-all duration-300">
               <span className="text-xs text-purple-200">S</span>
-              <span className="text-xl sm:text-2xl font-mono">{sVal}</span>
+              <span
+                className={`font-mono ${
+                  isBin ? "text-xs sm:text-sm" : "text-xl sm:text-2xl"
+                }`}
+              >
+                {formatValue(sVal, numberFormat)}
+              </span>
             </div>
 
             {/* S Word Circles (word 0 big left, word 1 small right) */}
             <div className="absolute -bottom-2 flex items-center gap-3 z-20">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#7C3AED] border border-purple-300/40 flex flex-col items-center justify-center text-[10px] font-mono text-white shadow">
                 <span className="text-[8px] text-purple-200">w0</span>
-                <span className="font-bold">{sWords[0]}</span>
+                <span className="font-bold">
+                  {formatWord4Bit(sWords[0], numberFormat)}
+                </span>
               </div>
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#7C3AED] border border-purple-300/40 flex flex-col items-center justify-center text-[10px] font-mono text-white shadow">
                 <span className="text-[8px] text-purple-200">w1</span>
-                <span className="font-bold">{sWords[1]}</span>
+                <span className="font-bold">
+                  {formatWord4Bit(sWords[1], numberFormat)}
+                </span>
               </div>
             </div>
           </div>

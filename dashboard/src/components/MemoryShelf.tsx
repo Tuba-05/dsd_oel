@@ -8,6 +8,8 @@
  */
 
 import React from "react";
+import { NumberFormat } from "../types/timeline";
+import { formatValue, formatWord4Bit } from "../utils/formatNumber";
 
 interface MemoryShelfProps {
   aVal: number;
@@ -17,6 +19,7 @@ interface MemoryShelfProps {
   mVal: number;
   bPointer: number;
   slipActive: boolean;
+  numberFormat: NumberFormat;
 }
 
 export const MemoryShelf: React.FC<MemoryShelfProps> = ({
@@ -27,7 +30,10 @@ export const MemoryShelf: React.FC<MemoryShelfProps> = ({
   mVal,
   bPointer,
   slipActive,
+  numberFormat,
 }) => {
+  const isBin = numberFormat === "bin";
+
   return (
     <div className="col-span-1 lg:col-span-3 lg:h-[490px] rounded-2xl border border-slate-700/60 bg-[#1E293B]/40 p-3 sm:p-4 flex flex-col justify-between items-center gap-4 lg:gap-0 relative">
       <span className="text-[11px] sm:text-xs font-medium text-slate-400 text-center">
@@ -39,17 +45,27 @@ export const MemoryShelf: React.FC<MemoryShelfProps> = ({
         <div className="flex flex-col items-center">
           <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#3B82F6] shadow-lg shadow-blue-500/20 flex flex-col items-center justify-center text-white font-bold relative z-10">
             <span className="text-xs sm:text-sm">A</span>
-            <span className="text-lg sm:text-xl">{aVal}</span>
+            <span
+              className={`font-mono ${
+                isBin ? "text-xs sm:text-sm" : "text-lg sm:text-xl"
+              }`}
+            >
+              {formatValue(aVal, numberFormat)}
+            </span>
           </div>
           {/* Word circles */}
           <div className="flex items-center gap-2.5 sm:gap-3 -mt-3 z-20">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#2563EB] border border-blue-300/40 flex flex-col items-center justify-center text-[10px] font-mono shadow">
               <span className="text-[9px] text-blue-200">w0</span>
-              <span className="font-bold">{aWords[0]}</span>
+              <span className="font-bold">
+                {formatWord4Bit(aWords[0], numberFormat)}
+              </span>
             </div>
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#2563EB] border border-blue-300/40 flex flex-col items-center justify-center text-[10px] font-mono shadow">
               <span className="text-[9px] text-blue-200">w1</span>
-              <span className="font-bold">{aWords[1]}</span>
+              <span className="font-bold">
+                {formatWord4Bit(aWords[1], numberFormat)}
+              </span>
             </div>
           </div>
           <span className="text-[10px] text-slate-400 mt-1 font-mono text-center">
@@ -59,9 +75,11 @@ export const MemoryShelf: React.FC<MemoryShelfProps> = ({
 
         {/* ITEM B: Orange Circle with 8 bit dots */}
         <div className="flex flex-col items-center">
-          <div className="w-18 h-18 w-20 h-20 rounded-full bg-[#F59E0B] shadow-lg shadow-amber-500/20 flex flex-col items-center justify-center text-white font-bold">
+          <div className="w-20 h-20 rounded-full bg-[#F59E0B] shadow-lg shadow-amber-500/20 flex flex-col items-center justify-center text-white font-bold">
             <span className="text-xs">B</span>
-            <span className="text-lg">{bVal}</span>
+            <span className={`font-mono ${isBin ? "text-[11px]" : "text-lg"}`}>
+              {formatValue(bVal, numberFormat)}
+            </span>
           </div>
           {/* 8 Bits below B (smallest bit first) */}
           <div className="flex items-center gap-1 sm:gap-1.5 mt-2">
@@ -101,7 +119,9 @@ export const MemoryShelf: React.FC<MemoryShelfProps> = ({
             </svg>
             <div className="w-16 h-16 rounded-full bg-[#10B981] shadow-lg shadow-emerald-500/20 flex flex-col items-center justify-center text-white font-bold z-10">
               <span className="text-xs">M</span>
-              <span className="text-base">{mVal}</span>
+              <span className={`font-mono ${isBin ? "text-[10px]" : "text-base"}`}>
+                {formatValue(mVal, numberFormat)}
+              </span>
             </div>
           </div>
           <span className="text-[10px] text-emerald-400 font-mono">

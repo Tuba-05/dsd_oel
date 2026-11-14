@@ -5,6 +5,8 @@
  */
 
 import React from "react";
+import { NumberFormat } from "../types/timeline";
+import { formatValue } from "../utils/formatNumber";
 
 interface OutputPanelProps {
   readyLight: boolean;
@@ -13,6 +15,7 @@ interface OutputPanelProps {
   resultOut?: number;
   showClockWrap?: boolean;
   wrapEquation?: string;
+  numberFormat: NumberFormat;
 }
 
 export const OutputPanel: React.FC<OutputPanelProps> = ({
@@ -22,7 +25,10 @@ export const OutputPanel: React.FC<OutputPanelProps> = ({
   resultOut,
   showClockWrap,
   wrapEquation,
+  numberFormat,
 }) => {
+  const isBin = numberFormat === "bin";
+
   return (
     <div className="col-span-1 lg:col-span-3 lg:h-[490px] p-4 flex flex-col sm:flex-row lg:flex-col justify-around lg:justify-between items-center gap-6 relative">
       {/* Top: Ready Light & b, q indicators */}
@@ -98,8 +104,12 @@ export const OutputPanel: React.FC<OutputPanelProps> = ({
             {resultOut !== undefined ? (
               <div className="flex flex-col items-center animate-scale">
                 <span className="text-xs text-slate-400">result</span>
-                <span className="text-2xl font-bold font-mono text-emerald-400">
-                  {resultOut}
+                <span
+                  className={`font-bold font-mono text-emerald-400 ${
+                    isBin ? "text-sm" : "text-2xl"
+                  }`}
+                >
+                  {formatValue(resultOut, numberFormat)}
                 </span>
                 {showClockWrap && wrapEquation && (
                   <span className="text-[9px] text-emerald-300 mt-0.5">

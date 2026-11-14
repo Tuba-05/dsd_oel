@@ -8,8 +8,9 @@
 import React, { useState, useEffect } from "react";
 import { Play, Pause, RotateCcw, SlidersHorizontal, X } from "lucide-react";
 import { STATE_STRIP } from "../constants/timelineData";
-import { OperandConfig } from "../types/timeline";
+import { NumberFormat, OperandConfig } from "../types/timeline";
 import { validateToyInputs } from "../utils/generateTimeline";
+import { formatValue } from "../utils/formatNumber";
 
 interface StateFooterProps {
   activeStateIndex: number;
@@ -17,6 +18,8 @@ interface StateFooterProps {
   isAtEnd: boolean;
   onPlayPause: () => void;
   operands: OperandConfig;
+  numberFormat: NumberFormat;
+  onChangeFormat: (fmt: NumberFormat) => void;
   isEditorOpen: boolean;
   setIsEditorOpen: (open: boolean) => void;
   onApplyOperands: (next: OperandConfig) => void;
@@ -34,6 +37,8 @@ export const StateFooter: React.FC<StateFooterProps> = ({
   isAtEnd,
   onPlayPause,
   operands,
+  numberFormat,
+  onChangeFormat,
   isEditorOpen,
   setIsEditorOpen,
   onApplyOperands,
@@ -119,9 +124,33 @@ export const StateFooter: React.FC<StateFooterProps> = ({
           >
             <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
             <span>
-              Inputs: A={operands.a}, B={operands.b}, M={operands.m}
+              Inputs: A={formatValue(operands.a, numberFormat)}, B=
+              {formatValue(operands.b, numberFormat)}, M=
+              {formatValue(operands.m, numberFormat)}
             </span>
           </button>
+
+          {/* Number Format Toggle: DEC | HEX | BIN */}
+          <div
+            className="flex items-center bg-[#1E293B] border border-slate-600/70 rounded-full p-1 text-[11px] font-mono"
+            role="group"
+            aria-label="Number display format"
+          >
+            {(["dec", "hex", "bin"] as NumberFormat[]).map((fmt) => (
+              <button
+                key={fmt}
+                type="button"
+                onClick={() => onChangeFormat(fmt)}
+                className={`px-2.5 py-1 rounded-full uppercase transition cursor-pointer ${
+                  numberFormat === fmt
+                    ? "bg-cyan-500 text-slate-950 font-bold shadow"
+                    : "text-slate-300 hover:text-white"
+                }`}
+              >
+                {fmt}
+              </button>
+            ))}
+          </div>
 
           <span className="text-[11px] text-slate-500 font-mono">
             (or press Spacebar)

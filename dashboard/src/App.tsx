@@ -18,6 +18,8 @@ import { StateFooter } from "./components/StateFooter";
 export default function App() {
   const {
     operands,
+    numberFormat,
+    setNumberFormat,
     aWords,
     bBits,
     isPlaying,
@@ -51,6 +53,7 @@ export default function App() {
           mVal={operands.m}
           bPointer={currentBeat.bPointer}
           slipActive={currentBeat.slipActive}
+          numberFormat={numberFormat}
         />
 
         {/* 2. THE CHIP (CENTER: 6 COLS) */}
@@ -60,6 +63,7 @@ export default function App() {
           carryActive={currentBeat.carryActive}
           droppedBit={currentBeat.droppedBit}
           activeMachine={currentBeat.activeMachine}
+          numberFormat={numberFormat}
         />
 
         {/* 3. RIGHT SIDE: READY LIGHT, b & q DOTS, RESULT TRAY */}
@@ -70,6 +74,7 @@ export default function App() {
           resultOut={currentBeat.resultOut}
           showClockWrap={currentBeat.showClockWrap}
           wrapEquation={currentBeat.wrapEquation}
+          numberFormat={numberFormat}
         />
 
         {/* 4. EPILOGUE FULL-SCREEN OVERLAY (BEAT 16) */}
@@ -79,13 +84,15 @@ export default function App() {
         />
       </main>
 
-      {/* BOTTOM STRIP: 14 MACHINE STATES, PLAY/PAUSE/REPLAY & CUSTOM INPUTS */}
+      {/* BOTTOM STRIP: 14 MACHINE STATES, PLAY/PAUSE/REPLAY, FORMAT & CUSTOM INPUTS */}
       <StateFooter
         activeStateIndex={currentBeat.activeStateIndex}
         isPlaying={isPlaying}
         isAtEnd={isAtEnd}
         onPlayPause={handlePlayPause}
         operands={operands}
+        numberFormat={numberFormat}
+        onChangeFormat={setNumberFormat}
         isEditorOpen={isEditorOpen}
         setIsEditorOpen={setIsEditorOpen}
         onApplyOperands={applyOperands}

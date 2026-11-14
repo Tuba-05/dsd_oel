@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { OperandConfig } from "../types/timeline";
+import { NumberFormat, OperandConfig } from "../types/timeline";
 import {
   generateTimelineBeats,
   toBitsLSB,
@@ -16,6 +16,7 @@ const DEFAULT_OPERANDS: OperandConfig = { a: 45, b: 61, m: 63 };
 
 export function useTimelinePlayer() {
   const [operands, setOperands] = useState<OperandConfig>(DEFAULT_OPERANDS);
+  const [numberFormat, setNumberFormat] = useState<NumberFormat>("dec");
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [timelineIndex, setTimelineIndex] = useState<number>(0);
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
@@ -81,6 +82,8 @@ export function useTimelinePlayer() {
 
   return {
     operands,
+    numberFormat,
+    setNumberFormat,
     aWords,
     bBits,
     isPlaying,

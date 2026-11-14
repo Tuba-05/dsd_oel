@@ -7,6 +7,9 @@
  *   animation beats (`TimelineBeat`), active machine highlights, and round summaries.
  */
 
+/** Display format for numbers across the visualizer */
+export type NumberFormat = "dec" | "hex" | "bin";
+
 /** User-configurable 8-bit toy model operands (0 <= A, B < M <= 63, M odd) */
 export interface OperandConfig {
   a: number;
