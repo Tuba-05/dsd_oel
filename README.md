@@ -8,9 +8,8 @@ Interactive Hardware Visualizer & Verilog RTL Design for the **256-bit Montgomer
 
 ## Repository Contents
 
-- **[`dashboard/`](./dashboard)** — Contains the interactive web UI that visually demonstrates how the Montgomery multiplication algorithm works step-by-step (with custom `A, B, M` inputs, animated hardware blocks, and a viva guide in [`dashboard/VIVA_GUIDE.md`](./dashboard/VIVA_GUIDE.md)).
+- **[`dashboard/`](./dashboard)** — Contains the interactive web UI that visually demonstrates how the Montgomery algorithm works step-by-step (with custom `A, B, M` inputs, animated hardware blocks, and a viva guide in [`dashboard/VIVA_GUIDE.md`](./dashboard/VIVA_GUIDE.md)).
 - **[`Montgomery_Mul_DSD_OEL/`](./Montgomery_Mul_DSD_OEL)** — Vivado Verilog RTL source files and testbench (`modmul_top.v`, `montprod.v`, `tb_MM.v`).
-- **[`montgomery_modular_multiplier_visualizer.tsx`](./montgomery_modular_multiplier_visualizer.tsx)** — Original standalone TSX component reference.
 
 ---
 
