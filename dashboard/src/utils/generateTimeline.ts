@@ -106,7 +106,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "IDLE",
       roundText: "Ready",
-      caption: `Goal: A × B (${a} × ${b}) on a clock of ${m} hours.`,
+      caption: `Goal: Multiply ${a} × ${b} and find the remainder on a ${m}-hour clock (mod ${m}).`,
       tickText: "tick 0",
       activeStateIndex: 0,
       readyLight: true,
@@ -126,7 +126,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "INIT_S",
       roundText: "Setup",
-      caption: "First, empty the bucket, one box at a time.",
+      caption: "Step 1: Start with an empty running total (S = 0) inside the chip.",
       tickText: "tick 1-2",
       activeStateIndex: 1,
       readyLight: false,
@@ -146,7 +146,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "LOOP_INIT",
       roundText: "Round 1 of 8",
-      caption: "We repeat 8 times, once for every bit of B.",
+      caption: `Step 2: Look at B (${b}) in binary — we run 8 quick rounds, one for each bit.`,
       tickText: "tick 3",
       activeStateIndex: 2,
       readyLight: false,
@@ -166,7 +166,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "ITER",
       roundText: "Round 1 of 8",
-      caption: "Ask the shelf for what we need.",
+      caption: "Fetch the next bit of B from the memory shelf into the chip.",
       tickText: "tick 4",
       activeStateIndex: 3,
       readyLight: false,
@@ -186,7 +186,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "BQ",
       roundText: "Round 1 of 8",
-      caption: "b: do we add A?  q: would the sum be odd?",
+      caption: `Decide: b=${r1.b} (${r1.b === 1 ? "add A" : "skip A"}), and q=${r1.q} (${r1.q === 1 ? "add M so the total becomes even" : "already even, skip M"}).`,
       tickText: "tick 5",
       activeStateIndex: 4,
       readyLight: false,
@@ -200,7 +200,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
       droppedBit: null,
       slipActive: false,
       activeMachine: null,
-      duration: 4000,
+      duration: 4200,
     },
     // Beat 5: CALC_SM (Round 1)
     {
@@ -208,8 +208,8 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
       roundText: "Round 1 of 8",
       caption:
         r1.q === 1
-          ? "M makes S even. Small word first, the carry moves up."
-          : "q is 0, so S is already even — skip adding M.",
+          ? `q = 1: Add M (${m}) so the running total S becomes an EVEN number!`
+          : "q = 0: S is already even, so we skip adding M.",
       tickText: "tick 6-7",
       activeStateIndex: 5,
       readyLight: false,
@@ -229,7 +229,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "wait",
       roundText: "Round 1 of 8",
-      caption: "Wait: the last box is still being placed.",
+      caption: "Saving the updated total into the chip's memory...",
       tickText: "tick 8",
       activeStateIndex: 6,
       readyLight: false,
@@ -251,8 +251,8 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
       roundText: "Round 1 of 8",
       caption:
         r1.b === 1
-          ? "If b is 1, add A. Small word first, carry moves up."
-          : "b is 0, so skip adding A this round.",
+          ? `b = 1: Add A (${a}) into the running total S (small word first, carry moves up).`
+          : "b = 0: Skip adding A this round.",
       tickText: "tick 9-10",
       activeStateIndex: 7,
       readyLight: false,
@@ -272,7 +272,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "wait",
       roundText: "Round 1 of 8",
-      caption: "Wait again, then start from the big word.",
+      caption: "Wait 1 clock cycle for the addition to settle in memory.",
       tickText: "tick 11",
       activeStateIndex: 8,
       readyLight: false,
@@ -292,7 +292,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "SDIV2",
       roundText: "Round 1 of 8",
-      caption: "Halve S. The dropped bit slides into the next box.",
+      caption: "Divide S by 2 (shift right 1 bit) — because S is even, there is zero remainder!",
       tickText: "tick 12-13",
       activeStateIndex: 9,
       readyLight: false,
@@ -312,7 +312,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "wait",
       roundText: "Round 1 of 8",
-      caption: "Next bit of B. Loop arrow points to the next bit.",
+      caption: "Round 1 done! Moving the pointer to the next bit of B.",
       tickText: "tick 14",
       activeStateIndex: 10,
       readyLight: false,
@@ -334,8 +334,8 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
       roundText: "Round 2 of 8",
       caption:
         r2.b === 0 && r2.q === 0
-          ? "Nothing to add this time (b=0, q=0). Only halving changes S."
-          : `Round 2 (b=${r2.b}, q=${r2.q}): S updates and halves to ${r2.sDiv2}.`,
+          ? `Round 2 (b=0, q=0): Nothing to add! Just divide S by 2 → S = ${r2.sDiv2}.`
+          : `Round 2 (b=${r2.b}, q=${r2.q}): Add ${r2.q === 1 ? "M " : ""}${r2.b === 1 ? "A " : ""}and divide by 2 → S = ${r2.sDiv2}.`,
       tickText: "round 2",
       activeStateIndex: 9,
       readyLight: false,
@@ -357,8 +357,8 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
       roundText: "Round 3 of 8",
       caption:
         r3.b === 1 && r3.q === 0
-          ? "Only A is added (b=1, q=0). Carry hops from word 1 to word 0."
-          : `Round 3 (b=${r3.b}, q=${r3.q}): S becomes ${r3.sDiv2} after halving.`,
+          ? `Round 3 (b=1, q=0): Only add A (carry hops from word 1 to word 0), then halve → S = ${r3.sDiv2}.`
+          : `Round 3 (b=${r3.b}, q=${r3.q}): Update S and divide by 2 → S = ${r3.sDiv2}.`,
       tickText: "round 3",
       activeStateIndex: 7,
       readyLight: false,
@@ -378,7 +378,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "ITER",
       roundText: "Round 4-8",
-      caption: `The same thing, five more times. S accumulates and halves to ${finalS}.`,
+      caption: `Rounds 4–8: Repeat the same add-and-halve trick 5 more times → S reaches ${finalS}.`,
       tickText: "rounds 4-8",
       activeStateIndex: 3,
       readyLight: false,
@@ -398,7 +398,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "EMIT_S",
       roundText: "Result Ready",
-      caption: "Send the answer out. The words of S slide out into the result tray.",
+      caption: `All 8 rounds finished! Sending the final total S = ${finalS} out to the Result tray.`,
       tickText: "tick 95",
       activeStateIndex: 12,
       readyLight: false,
@@ -421,8 +421,8 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
       state: "DONE",
       roundText: "Wrapper Modulo",
       caption: needsWrap
-        ? `On a clock of ${m} hours, ${finalS} is the same as ${reduced} (${finalS} - ${m} = ${reduced}).`
-        : `On a clock of ${m} hours, ${finalS} is already less than ${m} (no wrap needed).`,
+        ? `Clock wrap: ${finalS} on a ${m}-hour clock wraps around to ${reduced} (${finalS} − ${m} = ${reduced}).`
+        : `Final check: ${finalS} is already smaller than ${m}, so the final answer is ${reduced}!`,
       tickText: "tick 96",
       activeStateIndex: 13,
       readyLight: true,
@@ -445,7 +445,7 @@ export function generateTimelineBeats(a: number, b: number, m: number): Timeline
     {
       state: "DONE",
       roundText: "Real 256-Bit Hardware",
-      caption: "The real chip does the same thing, 256 times. The wrapper runs it 4 times to cancel ÷ 256.",
+      caption: "The real 256-bit chip uses this exact same add-and-halve trick 256 times (4 passes total)!",
       tickText: "30,305 ticks",
       activeStateIndex: 13,
       readyLight: true,

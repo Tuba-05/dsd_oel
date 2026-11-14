@@ -1,8 +1,16 @@
 # Montgomery Modular Multiplier — Animated Hardware Timeline Visualizer
 
-An interactive React + Vite + TypeScript + Tailwind CSS presentation visualizer for the **Montgomery Modular Multiplier** (`modmul_top.v` & `montprod.v`), walking step-by-step through an 8-bit toy example (`A = 45, B = 61, M = 63`) before scaling to the 256-bit cryptographic hardware metrics.
+An interactive, responsive React + Vite + TypeScript + Tailwind CSS presentation visualizer for the **Montgomery Modular Multiplier** (`modmul_top.v` & `montprod.v`), walking step-by-step through an 8-bit toy model (`A = 45, B = 61, M = 63` or custom inputs) before scaling to the 256-bit cryptographic hardware metrics.
 
 🌐 **Live Demo:** [https://dsd-oel.vercel.app/](https://dsd-oel.vercel.app/)
+
+---
+
+## Key Features
+
+- **Custom `(A, B, M)` Inputs & Quick Presets**: Click **`Inputs: A=45, B=61, M=63`** in the footer to enter any valid operands (`M` odd and `1 ≤ M ≤ 63`, `0 ≤ A, B < M`) or pick a preset, and the timeline + diagram recompute dynamically.
+- **Responsive Across All Devices**: Adapts cleanly from mobile phones and tablets to laptops and desktop monitors.
+- **Interactive Timeline & Spacebar Control**: Play, Pause, or Replay the 17-beat animation via the button or **Spacebar**, and dismiss the final 256-bit summary overlay anytime using its **`×`** close button.
 
 ---
 
@@ -21,21 +29,23 @@ dashboard/
 ├── VIVA_GUIDE.md                       # Separate Viva & Presentation Q&A Cheat-Sheet
 └── src/
     ├── main.tsx                        # React DOM entry point
-    ├── App.tsx                         # Main presentation layout composing all modules
+    ├── App.tsx                         # Main responsive layout composing all modules
     ├── index.css                       # Tailwind CSS directives & fadeIn/scale animations
     ├── types/
-    │   └── timeline.ts                 # TypeScript interfaces for TimelineBeat & RoundSummary
+    │   └── timeline.ts                 # TypeScript interfaces for OperandConfig, TimelineBeat & RoundSummary
     ├── constants/
-    │   └── timelineData.ts             # B_BITS, ROUNDS_DATA, STATE_STRIP, and 17 TIMELINE_BEATS
+    │   └── timelineData.ts             # 14-state FSM strip labels (STATE_STRIP)
+    ├── utils/
+    │   └── generateTimeline.ts         # Dynamic 8-round Montgomery math, validation & 17-beat generator
     ├── hooks/
-    │   └── useTimelinePlayer.ts        # Playback timer, Spacebar shortcut & beat progression hook
+    │   └── useTimelinePlayer.ts        # Custom inputs, playback timer, Spacebar & overlay state hook
     └── components/
-        ├── TopBar.tsx                  # Round counter, single-sentence caption & tick counter
-        ├── MemoryShelf.tsx             # External memory shelf (A=45, B=61 bit dots, M=63 clock ring)
+        ├── TopBar.tsx                  # Responsive round counter, single-sentence caption & tick counter
+        ├── MemoryShelf.tsx             # External memory shelf (A words w0/w1, B bit dots, M clock ring)
         ├── ChipView.tsx                # Central montprod chip (Bucket S, carry, dropped bit, +M/+A/÷2)
         ├── OutputPanel.tsx             # Ready light, b & q dots, and Result Tray
-        ├── EpilogueOverlay.tsx         # Real 256-bit hardware scale & 4-pass pipeline overlay
-        └── StateFooter.tsx             # 14 FSM state pills & Play/Pause/Replay button
+        ├── EpilogueOverlay.tsx         # Closable real 256-bit hardware scale & 4-pass pipeline overlay
+        └── StateFooter.tsx             # 14 FSM state pills, Play/Pause/Replay & Custom Inputs modal
 ```
 
 ---

@@ -1,6 +1,6 @@
 # DSD Open-Ended Lab (`dsd_oel`) — 256-Bit Montgomery Modular Multiplier
 
-Interactive RTL Hardware Visualizer & Simulator for the **256-bit Montgomery Modular Multiplier** (`modmul_top.v` & `montprod.v`).
+Interactive Hardware Visualizer & Verilog RTL Design for the **256-bit Montgomery Modular Multiplier** (`modmul_top.v` & `montprod.v`).
 
 🌐 **Live Demo:** [https://dsd-oel.vercel.app/](https://dsd-oel.vercel.app/)
 
@@ -8,10 +8,8 @@ Interactive RTL Hardware Visualizer & Simulator for the **256-bit Montgomery Mod
 
 ## Repository Contents
 
-- **[`dashboard/`](./dashboard)** — Modular React + Vite + TypeScript + Tailwind CSS hardware simulator dashboard.
-  - **[`dashboard/README.md`](./dashboard/README.md)** — Setup & architecture documentation.
-  - **[`dashboard/VIVA_GUIDE.md`](./dashboard/VIVA_GUIDE.md)** — Complete Viva & Presentation Q&A Cheat-Sheet.
-- **[`Montgomery_Mul_DSD_OEL/`](./Montgomery_Mul_DSD_OEL)** — Vivado Verilog RTL design & testbench project files.
+- **[`dashboard/`](./dashboard)** — Contains the interactive web UI that visually demonstrates how the Montgomery multiplication algorithm works step-by-step (with custom `A, B, M` inputs, animated hardware blocks, and a viva guide in [`dashboard/VIVA_GUIDE.md`](./dashboard/VIVA_GUIDE.md)).
+- **[`Montgomery_Mul_DSD_OEL/`](./Montgomery_Mul_DSD_OEL)** — Vivado Verilog RTL source files and testbench (`modmul_top.v`, `montprod.v`, `tb_MM.v`).
 - **[`montgomery_modular_multiplier_visualizer.tsx`](./montgomery_modular_multiplier_visualizer.tsx)** — Original standalone TSX component reference.
 
 ---
@@ -24,4 +22,4 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173/](http://localhost:5173/) in your browser to view the simulator locally.
+Open [http://localhost:5173/](http://localhost:5173/) in your browser to view the visual simulation locally.
