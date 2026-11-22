@@ -22,7 +22,7 @@ This project implements and visually demonstrates a **256-bit Montgomery Modular
 ## Repository Contents
 
 - **[`dashboard/`](./dashboard)** — Contains the interactive web UI that visually demonstrates how the Montgomery algorithm works step-by-step (with custom `A, B, M` inputs and animated hardware blocks).
-- **[`Montgomery_Mul_DSD_OEL/`](./Montgomery_Mul_DSD_OEL)** — Vivado Verilog RTL source files and testbench (`modmul_top.v`, `montprod.v`, `tb_MM.v`).
+- **[`Montgomery_Mul_DSD_OEL/`](./Montgomery_Mul_DSD_OEL_Mode1)** — Vivado Verilog RTL source files and testbench (`modmul_top.v`, `montprod.v`, `tb_MM.v`).
 
 ---
 
